@@ -23,23 +23,32 @@ const App = () => {
 		<>
 			<blockquote className="blockquote">
 				<p className="mb-0">
-					"{quote.body}"
+				<i className="material-icons text-primary">format_quote</i>
+				<span>
+					{quote.body}
+				</span>
+				<i className="material-icons text-primary">format_quote</i>
 				</p>
-				<p>
+				<p className="text-center text-primary">
 					.. {quote.author}
 				</p>
 			</blockquote>
-			<button
-				type="button" className="btn btn-primary"
-			>
-				Fav
-			</button>
-			<button
-				onClick={fetchData}
-				type="button" className="btn btn-primary"
-			>
-				Other
-			</button>
+			<div className="row">
+				<div className="mx-auto">
+					<button
+						type="button" className="btn btn-secondary rounded-circle"
+					>
+						<i className="material-icons">favorite</i>
+					</button>
+					<button
+						onClick={fetchData}
+						type="button" className="btn btn-secondary rounded-circle"
+					>
+						<i className="material-icons">cached</i>
+					</button>
+					
+				</div>
+			</div>
 		</>
 	);
 };
