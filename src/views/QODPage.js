@@ -3,6 +3,7 @@ import React, {
 	useEffect
 } from 'react';
 import { getQuoteOfDay } from '../api/quoteService';
+import QODComponent from '../components/QODComponent';
 
 const App = () => {
 	const [quote, setQuote] = useState({
@@ -21,18 +22,7 @@ const App = () => {
 
 	return (
 		<>
-			<blockquote className="blockquote">
-				<p className="mb-0">
-				<i className="material-icons text-primary">format_quote</i>
-				<span>
-					{quote.body}
-				</span>
-				<i className="material-icons text-primary">format_quote</i>
-				</p>
-				<p className="text-center text-primary">
-					.. {quote.author}
-				</p>
-			</blockquote>
+			<QODComponent quote={quote} />
 			<div className="row">
 				<div className="mx-auto">
 					<button
