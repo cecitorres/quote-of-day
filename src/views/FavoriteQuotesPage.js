@@ -1,7 +1,7 @@
 import React from 'react';
 
 const App = () => (
-  <div>Favorites Page</div>
+  <div>Favorites Page, WIP ...</div>
 );
 
 export default App;
