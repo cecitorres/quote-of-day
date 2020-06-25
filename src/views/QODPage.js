@@ -20,16 +20,6 @@ const QODPage = () => {
 		},
     [firestore]
 	);
-	// const saveFavQuote = (favQuote) => {
-  //   firestore
-  //     .collection("quotes")
-  //     .add(favQuote)
-  //     .then((docRef) => {
-  //       docRef.update({
-  //         id: docRef.id,
-  //       });
-	// 	});
-	// };
 	
 	const [quote, setQuote] = useState({
 		body: '',

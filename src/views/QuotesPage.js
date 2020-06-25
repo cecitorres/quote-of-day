@@ -1,11 +1,24 @@
-import React, { useState } from "react";
-import { getQuotes } from "../api/quoteService";
-import QuoteResult from "../components/QuoteResult.jsx";
+import React, { useState, useCallback } from 'react';
+import { useFirestore } from 'react-redux-firebase';
+import { useDispatch } from 'react-redux';
+import { getQuotes } from '../api/quoteService';
+import QuoteResult from '../components/QuoteResult.jsx';
+import { addQuote } from '../actions';
 
 const QuotesPage = () => {
-  const [textFilter, setTextFilter] = useState("");
+  const [textFilter, setTextFilter] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const firestore = useFirestore();
+  const dispatch = useDispatch();
+
+  const saveFavQuote = useCallback(
+    (quote) => {
+      return dispatch(addQuote({ firestore }, quote));
+    },
+    [firestore]
+  );
 
   const handleSearchInput = (e) => {
     const text = e.target.value;
@@ -13,7 +26,7 @@ const QuotesPage = () => {
   };
 
   const searchQuotes = async () => {
-    if (textFilter === "") return;
+    if (textFilter === '') return;
     setLoading(true);
     const response = await getQuotes(textFilter);
     setResults(response.data.quotes);
@@ -21,7 +34,11 @@ const QuotesPage = () => {
   };
 
   const resultsHtml = results.map((quote) => (
-    <QuoteResult quote={quote} key={quote.id} />
+    <QuoteResult
+      quote={quote}
+      key={quote.id}
+      saveHandler={saveFavQuote}
+    />
   ));
 
   return (
