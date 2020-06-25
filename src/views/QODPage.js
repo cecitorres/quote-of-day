@@ -1,11 +1,40 @@
 import React, {
 	useState,
-	useEffect
+	useEffect,
+	useCallback
 } from 'react';
 import { getQuoteOfDay } from '../api/quoteService';
 import QODComponent from '../components/QODComponent';
+import { useFirestore } from "react-redux-firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { addQuote } from "../actions";
 
-const App = () => {
+
+const QODPage = () => {
+	const firestore = useFirestore();
+	// const dispatch = useDispatch();
+  // const { uid } = useSelector((state) => state.firebase.auth);
+  // const handleChange = ({ currentTarget: { name, value } }) => {
+  //   if (name === "addTodo") {
+  //     setPresentToDo(value);
+  //   }
+  // };
+
+	// const saveFavQuote = useCallback(
+  //   quote => dispatch(addQuote({ firestore }, quote)),
+  //   [firestore]
+	// );
+	const saveFavQuote = (favQuote) => {
+    firestore
+      .collection("quotes")
+      .add(favQuote)
+      .then((docRef) => {
+        docRef.update({
+          id: docRef.id,
+        });
+		});
+	};
+	
 	const [quote, setQuote] = useState({
 		body: '',
 		author: ''
@@ -26,7 +55,8 @@ const App = () => {
 			<div className="row">
 				<div className="mx-auto">
 					<button
-						type="button" className="btn btn-secondary rounded-circle"
+						onClick={saveFavQuote(quote)}
+						type="button" className="btn btn-secondary rounded-circle mr-2"
 					>
 						<i className="material-icons">favorite</i>
 					</button>
@@ -43,4 +73,4 @@ const App = () => {
 	);
 };
 
-export default App;
+export default QODPage;
