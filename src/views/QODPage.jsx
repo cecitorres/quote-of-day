@@ -36,7 +36,7 @@ const QODPage = () => {
 	}, []);
 
 	return (
-		<>
+		<div class="container">
 			<QODComponent quote={quote} />
 			<div className="row">
 				<div className="mx-auto">
@@ -55,7 +55,7 @@ const QODPage = () => {
 					
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 

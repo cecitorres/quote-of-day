@@ -1,7 +1,7 @@
 import React from "react";
 
 const QuoteResult = ({ quote, saveHandler }) => (
-  <div className="alert alert-dark my-3 container-fluid">
+  <div className="alert alert-quote border my-3 container-fluid">
     <p className="mb-0">{quote.body}</p>
     <div className="align-items-end text-center text-wrap">
       <span>-- {quote.author}</span>
