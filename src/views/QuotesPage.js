@@ -1,12 +1,12 @@
-import React, { useState, useCallback } from 'react';
-import { useFirestore } from 'react-redux-firebase';
-import { useDispatch } from 'react-redux';
-import { getQuotes } from '../api/quoteService';
-import QuoteResult from '../components/QuoteResult.jsx';
-import { addQuote } from '../actions';
+import React, { useState, useCallback } from "react";
+import { useFirestore } from "react-redux-firebase";
+import { useDispatch } from "react-redux";
+import { getQuotes } from "../api/quoteService";
+import QuoteResult from "../components/QuoteResult";
+import { addQuote } from "../actions";
 
 const QuotesPage = () => {
-  const [textFilter, setTextFilter] = useState('');
+  const [textFilter, setTextFilter] = useState("");
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -26,7 +26,7 @@ const QuotesPage = () => {
   };
 
   const searchQuotes = async () => {
-    if (textFilter === '') return;
+    if (textFilter === "") return;
     setLoading(true);
     const response = await getQuotes(textFilter);
     setResults(response.data.quotes);
@@ -34,43 +34,41 @@ const QuotesPage = () => {
   };
 
   const resultsHtml = results.map((quote) => (
-    <QuoteResult
-      quote={quote}
-      key={quote.id}
-      saveHandler={saveFavQuote}
-    />
+    <QuoteResult quote={quote} key={quote.id} saveHandler={saveFavQuote} />
   ));
 
   return (
-    <>
-      <div className="input-group mb-3">
-        <input
-          value={textFilter}
-          onChange={handleSearchInput}
-          type="text"
-          className="form-control"
-          placeholder="quote text filter"
-        />
-        <div className="input-group-append">
-          <button
-            onClick={searchQuotes}
-            className="btn btn-outline-primary"
-            type="button"
-          >
-            {loading ? (
-              <span
-                className="spinner-border spinner-border-sm"
-                role="status"
-                aria-hidden="true"
-              ></span>
-            ) : (
-              "SEARCH"
-            )}
-          </button>
+    <div className="container">
+      <div className="row">
+        <div className="input-group mb-3">
+          <input
+            value={textFilter}
+            onChange={handleSearchInput}
+            type="text"
+            className="form-control"
+            placeholder="quote text filter"
+          />
+          <div className="input-group-append">
+            <button
+              onClick={searchQuotes}
+              className="btn btn-outline-primary"
+              type="button"
+            >
+              {loading ? (
+                <span
+                  className="spinner-border spinner-border-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              ) : (
+                "SEARCH"
+              )}
+            </button>
+          </div>
         </div>
-        {resultsHtml}
       </div>
-    </>
+      <div className="row">{resultsHtml}</div>
+    </div>
   );
 };
 

@@ -18,30 +18,31 @@ const FavoriteQuotesPage = () => {
   );
 
   return (
-    <>
-      {quotes &&
-        Object.keys(quotes).map((quoteId) => {
-          let quote = quotes[quoteId];
-          if (quote) {
-            return <div key={quoteId}>
-              <p className="mb-0">{quote.body}</p>
-              <div className="align-items-end text-center text-wrap">
-                <span>-- {quote.author}</span>
-                <button
-                  onClick={() => deleteFavQuote(quoteId)}
-                  type="button"
-                  className="btn btn-warning btn-sm ml-3 rounded-circle float-right"
-                >
-                  <i className="material-icons">delete</i>
-                </button>
-              </div>
-            </div>
-          } else {
-            return null;
-          }
-        })
-      }
-    </>
+    <div className="container">
+        {quotes &&
+          Object.keys(quotes).map((quoteId) => {
+            let quote = quotes[quoteId];
+            if (quote) {
+              return (
+                <div className="fav" key={quoteId}>
+                  <p className="mb-0">{quote.body}</p>
+                  <div className="align-items-end text-center text-wrap">
+                    <span>-- {quote.author}</span>
+                    <button
+                      onClick={() => deleteFavQuote(quoteId)}
+                      type="button"
+                      className="btn btn-warning btn-sm ml-3 rounded-circle float-right"
+                    >
+                      <i className="material-icons">delete</i>
+                    </button>
+                  </div>
+                </div>
+              );
+            } else {
+              return null;
+            }
+          })}
+    </div>
   );
 };
 
