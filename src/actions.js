@@ -17,6 +17,7 @@ export const addQuote = ({ firestore }, quote) => {
 };
 
 export const deleteQuote = ({ firestore }, idQuote) => {
+  console.log(idQuote);
   return (dispatch, getState) => {
     firestore
       .collection('quotes')
