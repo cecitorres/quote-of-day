@@ -12,28 +12,24 @@ import { addQuote } from "../actions";
 
 const QODPage = () => {
 	const firestore = useFirestore();
-	// const dispatch = useDispatch();
-  // const { uid } = useSelector((state) => state.firebase.auth);
-  // const handleChange = ({ currentTarget: { name, value } }) => {
-  //   if (name === "addTodo") {
-  //     setPresentToDo(value);
-  //   }
-  // };
+	const dispatch = useDispatch();
 
-	// const saveFavQuote = useCallback(
-  //   quote => dispatch(addQuote({ firestore }, quote)),
-  //   [firestore]
-	// );
-	const saveFavQuote = (favQuote) => {
-    firestore
-      .collection("quotes")
-      .add(favQuote)
-      .then((docRef) => {
-        docRef.update({
-          id: docRef.id,
-        });
-		});
-	};
+	const saveFavQuote = useCallback(
+		quote => {
+			return dispatch(addQuote({ firestore }, quote))
+		},
+    [firestore]
+	);
+	// const saveFavQuote = (favQuote) => {
+  //   firestore
+  //     .collection("quotes")
+  //     .add(favQuote)
+  //     .then((docRef) => {
+  //       docRef.update({
+  //         id: docRef.id,
+  //       });
+	// 	});
+	// };
 	
 	const [quote, setQuote] = useState({
 		body: '',
@@ -55,7 +51,7 @@ const QODPage = () => {
 			<div className="row">
 				<div className="mx-auto">
 					<button
-						onClick={saveFavQuote(quote)}
+						onClick={() => saveFavQuote(quote)}
 						type="button" className="btn btn-secondary rounded-circle mr-2"
 					>
 						<i className="material-icons">favorite</i>
